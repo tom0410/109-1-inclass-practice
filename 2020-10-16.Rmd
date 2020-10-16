@@ -1,0 +1,61 @@
+---
+title: "課?<a0>?練習模<e7><89><88>"
+author: "tom0410"
+date: "2020-10-16"
+output: output_format
+params:
+  id: "410973093"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+```{r}
+d <- 4
+e <- 5
+d+e
+
+```
+
+```{r}
+lucky_numbers <- c(24, 34)
+lucky_numbers
+```
+#需要修正
+```{r}
+get_bmi <- function(height, weight) {
+  height <- height/100
+  bmi <- weight / height**2
+  return(bmi)
+}
+get_bmi(170, 60)
+
+```
+```{r}
+vNum1 <- c(-1,5)
+vNum2 <- c(2,3)
+vNum4 <- c() # 空向量
+vNum3 <- c(vNum2, vNum1)
+vNum4 <- c(vNum4, vNum1) # 向量疊代 （recursive vector concatenate）
+```
+#n: original purpose是字母n
+
+#\n: 換行 (new line)
+
+#": original purpose是用來定義字串的引號。
+
+#\": 單指平常我們說的引號。
+```{r}
+stringInteger <- c("1","2","-11")
+trueInteger <- as.integer(stringInteger)
+class(trueInteger) # 可以進行數值運算
+typeof(trueInteger)
+trueInteger+2
+
+char3 <- c("小明","1","3")
+as.integer(char3)
+```
+
