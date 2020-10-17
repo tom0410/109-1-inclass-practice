@@ -1,0 +1,97 @@
+---
+title: "課?<a0>?練習模<e7><89><88>"
+author: "tom0410"
+date: "2020-10-17"
+output: output_format
+params:
+  id: "410973093"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+```{r}
+library(lubridate)
+```
+
+```{r}
+tpeTime <- ymd_hms("2020-03-18 13:52:40",
+        tz="Asia/Taipei")
+pgTime <- mdy_hms("Mar.18, 2020, 05:52:40",
+                  tz="Europe/Lisbon")
+```
+
+```{r}
+ymd_hms("2020-03-11T06:56:17Z")
+```
+
+```{r}
+typeof(tpeTime)
+class(tpeTime)
+```
+
+```{r}
+tpeTime
+print(tpeTime)
+cat(tpeTime) ## 1584510760 指比1970.01.01.0:00:00多的秒數
+```
+
+```{r}
+cat(as.character(tpeTime))  # cat顯示的正是存出來樣貌
+print(as.character(tpeTime))
+```
+
+## peolpe tell computer the time
+```{r}
+tpeTime2 <- ymd_hms("2010-03-18 16:52:40",
+        tz="Asia/Taipei")
+
+pgTime2 <- mdy_hms("Mar.01, 2020, 03:52:40",
+                  tz="Europe/Lisbon")
+```
+
+##computer tells people the time-tpeTime
+```{r}
+tpeTime3 <- 
+  with_tz(tpeTime2, tzone="America/New_York")
+
+print(tpeTime2)
+print(tpeTime3)
+```
+##computer tells people the time-pgTime
+```{r}
+pgTime3 <- 
+  with_tz(pgTime2, tzone="America/New_York")
+
+print(pgTime2)
+print(pgTime3)
+```
+
+```{r}
+as.numeric(tpeTime2)
+as.numeric(tpeTime3)
+
+cat(tpeTime2)
+```
+
+```{r}
+tpeTime_utc <- with_tz(tpeTime,tz="UTC")
+as.character(tpeTime_utc)
+print(tpeTime_utc)
+cat(as.character(tpeTime_utc))
+```
+
+```{r}
+# Method 2: pass as a character that fits ISO8601 date time description standard with tz onset specified
+tpeTime_iso8601 <- format_ISO8601(tpeTime, usetz=T)
+tpeTime_iso8601
+```
+
+```{r}
+tpeTime <- ymd_hms(tpeTime_iso8601)
+print(as.character(tpeTime_iso8601))
+```
+
