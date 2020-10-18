@@ -1,0 +1,190 @@
+---
+title: "課?<a0>?練習模<e7><89><88>"
+author: "tom0410"
+date: "2020-10-18"
+output: output_format
+params:
+  id: "410973093"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+```{r}
+library(lubridate)
+
+# Date/Time class
+purchasingTime <- 
+  ymd_hms("2020-03-31T13:40:55Z")
+
+# character
+location <- "一芳"
+item <- "水果茶"
+
+# numeric
+quantity <- 2
+
+mingsPurchase <-
+  list(
+    purchasingTime, 
+    location, 
+    quantity, 
+    item
+  )
+print(mingsPurchase)
+```
+## elementName打法
+```{r}
+elementName=
+`elementName`=
+"elementName"=
+'elementName'=
+```
+
+```{r}
+exampleList <- 
+  list(
+    c(4,6,10),
+    list("Mary",173),
+    T
+  )
+print(exampleList)
+```
+
+```{r}
+example2 <- list(
+  list(2,"tom"),
+  list(7,"staffi")
+)
+print(example2)
+```
+
+```{r}
+example2c <- c(
+  c(2,5),
+  c(4,6)
+)
+print(example2c)
+```
+
+```{r}
+# 「**2杯**」「**水果茶**」
+item1 <- list(
+  quantity=2,
+  `item name`="水果茶"
+)
+# 「**1杯**」「**日月紅茶**」
+item2 <- list(
+  quantity=1,
+  `item name`="日月紅茶"
+)
+# <- ,=
+mingsPurchase3 <-
+  list(
+    time = purchasingTime,
+    location = location,
+    items=list(
+      item1,
+      item2
+    )
+  )
+
+print(mingsPurchase3)
+```
+
+```{r}
+student1 <-
+  list(
+    name = character(),
+    id = character(),
+    gmail = character(),
+    googleClassroom =
+      list(
+        displayName = character()
+      ),
+    github =
+      list(
+        username = character(),
+        repoUrl = character()
+      ),
+    homeworks = list(),
+    exams = list(),
+    list()
+  )
+
+names(student1) # 每個元素名稱
+length(student1) # 元素個數
+```
+
+```{r}
+str(student1, 1) # 第一層基本元素架構
+```
+
+```{r}
+hw1 <- list(
+  date=ymd("2020-10-21"),
+  grade=10
+)
+exam1 <- list(
+  date=ymd("2020-10-28"),
+  grade=50
+)
+student1 <-
+  list(
+    name = "Martin",
+    id = "007",
+    gmail = "mt@gm.ntpu.edu.tw",
+    googleClassroom =
+      list(
+        displayName = "MT L"
+      ),
+    github =
+      list(
+        username = "tpemartin",
+        repoUrl = "https://github.com/tpemartin/109-1-inclass-practice"
+      ),
+    homeworks = list(
+      hw1
+    ),
+    exams = list(
+      exam1
+    ),
+    list()
+  )
+
+str(student1, 2)
+```
+
+
+```{r}
+categoryTemplate = 
+  list(
+    categoryName=character(),
+    items = list(
+    )
+  )
+
+salatCat <- list(
+  catergoryName="沙拉套餐",
+  item=list("板煎雞腿排經典凱薩沙拉",203),
+  list("炙燒鴨胸佐胡麻沙拉",203)
+)
+print(salatCat)
+```
+## JSON
+```{r}
+library(jsonlite) # 不少同學這行會有Error，還記得如何排除嗎？
+toJSON(mingsPurchase3)
+```
+## 存檔save(...,...,file="....rda")
+```{r}
+save(item2,salatCat,file="object.rda")
+```
+## 叫檔案出來load(....rda)
+```{r}
+load(obgect.rda)
+```
+
