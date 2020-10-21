@@ -1,0 +1,47 @@
+---
+title: "課?<a0>?練習模<e7><89><88>"
+author: "tom0410"
+date: "2020-10-21"
+output: output_format
+params:
+  id: "410973093"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+
+##1
+```{r}
+library(lubridate)
+NBA1920Final567 <- list(
+  game5 <- list(
+    Date=ymd("2020-10-09"),
+    StartTime="21:00",
+    TimeZone="ET",
+    Away="Miami Heat",
+    Home="L.A. Lakers"
+  ),
+
+  game6 <-list(
+    Date=ymd("2020-10-11"),
+    StartTime="19:30",
+    TimeZone="ET",
+    Away="L.A. Lakers",
+    Home="Miami Heat"
+  ),
+
+  game7 <- list(
+    Date=ymd("2020-10-13"),
+    StartTime="21:00",
+    TimeZone="ET",
+    Away="Miami Heat",
+    Home="L.A. Lakers")
+  )
+str(NBA1920Final567, 2)
+
+print(NBA1920Final567)
+```
