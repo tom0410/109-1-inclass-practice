@@ -1,0 +1,28 @@
+---
+title: "課?<a0>?練習模<e7><89><88>"
+author: "tom0410"
+date: "2020-11-04"
+output: output_format
+params:
+  id: "410973093"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+```{r}
+library(lubridate)
+gender = "女"
+school = "國立臺北大學"
+ttitle = "問 泰昇補習班打工"
+content = "有在板上看到過很多北大附近補習班打工不推的\n
+不過好像還沒看到泰昇這間的評價\n
+想請問大家還可以嗎🙏"
+tags = "補習班,北大"
+timestamp = ymd_hms("2020.11.04 11:55:00")
+
+```
+
