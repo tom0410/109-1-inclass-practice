@@ -1,0 +1,404 @@
+---
+title: "課?<a0>?練習模<e7><89><88>"
+author: "tom0410"
+date: "2020-12-27"
+output: output_format
+params:
+  id: "410973093"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+##5.2.1 if
+```{r}
+set.seed(10739)
+customers <- data.frame(
+  bills = sample(200:500, 10),
+  vouchers = sample(c(T,F), size=10, replace=T,
+                     prob=c(0.4,0.6)
+                     )
+)
+head(customers)
+```
+
+```{r}
+bill <- customers$bills[[3]]
+hasVoucher <- customers$vouchers[[3]]
+totalBill <- 
+{
+  startingBill <- bill
+  if(hasVoucher)
+  {
+    bill <- bill - 20
+  }
+  message("You initial bill is ", startingBill,".\n",
+          "You final bill is ", bill)
+  bill
+}
+print(totalBill)
+```
+
+###用function(   ,   )整個打包
+```{r}
+get_totalBill <- function(bill, hasVoucher) ###function()
+{
+  startingBill <- bill
+  if(hasVoucher)
+  {
+    bill <- bill - 20
+  }
+  message("You initial bill is ", startingBill,".\n",
+          "You final bill is ", bill, "\n")
+  bill
+}
+
+get_totalBill(
+  customers$bills[[5]],
+  customers$vouchers[[5]]
+)
+```
+
+###map
+```{r}
+library(stringr)
+library(purrr)
+map(
+  1:10,
+  ~{
+    get_totalBill(
+  customers$bills[[.x]],
+  customers$vouchers[[.x]]
+    )
+  }
+)
+```
+
+###map2
+```{r}
+purrr::map2(
+  customers$bills, customers$vouchers,
+  ~get_totalBill(.x, .y)
+)
+```
+
+`f(x) = sqrt(x), x >= 0`
+```{r}
+f <- function(x){
+  if(x<0)
+  {
+    stop("x has to be non-negative.")
+  }
+  sqrt(x)
+}
+
+f(-2)
+f(2)
+```
+
+```{r}
+comment_grade <- function(grade){
+  if(grade < 60) return("Don't give up. There is still hope.")
+  return("Good job. Keep going")
+}
+```
+
+```{r}
+comment_grade(55)
+comment_grade(70)
+```
+
+```{r}
+df_grades <- data.frame(
+  grade=sample(50:95, 20, replace = T)
+)
+purrr::map_chr(
+  df_grades$grade,
+  comment_grade
+) -> df_grades$comment
+```
+
+```{r}
+unlist(map(
+  df_grades$grade,
+  comment_grade
+))
+```
+
+##5.2.2 condition
+Use
+###all() 
+to flag if `all` failed.
+
+###any() 
+to flag if `any` failed.
+```{r}
+grades <- c(72, 55, 82)
+# any one failed? 
+if(any(grades < 60)) message("\nYes, someone failed")
+```
+
+```{r}
+Sys.setenv("_R_CHECK_LENGTH_1_CONDITION_" = "true")
+```
+
+```{r}
+grades <- c(55, 72, 82)
+# any one failed? 
+if(grades < 60) message("\nYes, someone failed") # error now
+```
+
+##5.2.3 && ||
+
+###&&
+```{r}
+grade1 <- list(
+  economics=55,
+  calculus=77
+)
+grade2 <- c(
+  economics=55,
+  calculus=77
+)
+```
+
+```{r}
+(is.list(grade1) &  grade1$economics > 60) #False
+(is.list(grade2) &  grade2$economics > 60) #error (因為grade用的是`c()`
+```
+
+`&&`:
+Conditions are check sequentially. `When one is FALSE, there is no need to check subsequent conditions`; a FALSE is concluded.
+```{r}
+(is.list(grade1) && grade1$economics > 60) #FALSE
+(is.list(grade2) && grade2$economics > 60) #FALSE
+```
+###||
+```{r}
+myAge <- 75
+
+if(myAge >=65 | stop("Error")){
+  "Qualified"
+} else {
+  warning("Not qualified")
+}
+
+#error: Error
+```
+`||`:
+Conditions are check sequentially. `When one is TRUE, there is no need to check subsequent conditions`; a TRUE is concluded.
+```{r}
+if(myAge >=65 ||  stop("Error")){
+  "Qualified"
+} else {
+  warning("Not qualified")
+}
+
+#"Qualified"
+```
+
+##5.2.4 if else
+
+```{r}
+fx <- function(x)
+{
+  # ending scenario 1:
+  if(x %% 2 ==0) #x is even
+  {
+    return(x/2)
+  } else
+  # ending scenario 2:
+  {
+    return(-(x+1)/2)
+  }
+}
+```
+
+```{r}
+fx(4L)
+fx(7L)
+```
+##5.2.5 if-else if-else if-else
+
+e.g.
+成績等級：
+
+90以上: 優 # condition A
+
+80-89：良 # condition B
+
+70-79：尚可 # condition C
+
+70以下：待加強 # else
+```{r}
+# 前提
+grade <- 88
+# 任務
+comment <- 
+{
+  {
+    "優"
+  }
+  {
+    "良"
+  }
+  {
+    "尚可"
+  }
+  {
+    "待加強"
+  }
+}
+```
+
+```{r}
+# 前提
+grade <- 88
+# 任務
+comment <- 
+{
+  if(grade>=90)
+  {
+    "優"
+  } else
+  if(grade >=80 && grade <=89)
+  {
+    "良"
+  } else
+  if(grade>=70 && grade <=79)
+  {
+    "尚可"
+  } else
+  {
+    "待加強"
+  }
+}
+
+comment #"良"
+```
+
+```{r}
+comment_grade <- function(grade){  #function()
+  if(grade>=90)
+  {
+    "優"
+  } else
+  if(grade >=80 && grade <=89)
+  {
+    "良"
+  } else
+  if(grade>=70 && grade <=79)
+  {
+    "尚可"
+  } else
+  {
+    "待加強"
+  }
+}
+
+comment_grade[c(90,85)]
+```
+***If there are multiple TRUE flags from different if-condition expressions, ONLY the programming block `follows the FIRST TRUE flag will be executed`
+```{r}
+comment_grade <- function(grade){
+  if(grade>=85)
+  {
+    "優"
+  } else
+  if(grade >=80 && grade <=89) 
+  {
+    "良"
+  } else
+  if(grade>=70 && grade <=79)
+  {
+    "尚可"
+  } else
+  {
+    "待加強"
+  }
+}
+
+comment_grade(86)
+```
+
+##5.2.6 switch
+```{r}
+sortedEmails <- list(
+  office=character(),
+  student=character(),
+  private=character()
+)
+```
+
+```{r}
+set.seed(2839)
+emailFrom <- sample(
+  c("econ@gm.ntpu.edu.tw","classStudents@gm.ntpu.edu.tw","xxx@gmail.com","econStaff@gm.ntpu.edu.tw","yyyy@gmail.com"), 50,
+  replace=T
+)
+head(emailFrom, 10)
+```
+
+```{r}
+.x<- 3
+commingEmail <- emailFrom[[.x]]
+```
+
+```{r}
+# Office
+{
+  message("You have a message from office.")
+  nOffice <- length(sortedEmails$office)
+  sortedEmails$office[[nOffice+1]] <- commingEmail
+  sortedEmails
+}
+# Student
+{
+  message("There is an email from student in your class.")
+  nStudent <- length(sortedEmails$student)
+  sortedEmails$student[[nStudent+1]] <- commingEmail
+  sortedEmails
+}
+# Private
+{
+  message("A private message has come in.")
+  nPrivate <- length(sortedEmails$private)
+  sortedEmails$private[[nPrivate+1]] <- commingEmail
+  sortedEmails
+}
+```
+
+```{r}
+library(stringr)
+condition_sgn <- 
+  ifelse(
+    str_detect(commingEmail,"econ"), "office", commingEmail)
+```
+
+```{r}
+switch(
+  condition_sgn,
+  "office"={
+    message("You have a message from office.")
+    nOffice <- length(sortedEmails$office)
+    sortedEmails$office[[nOffice+1]] <- commingEmail
+    sortedEmails
+  },
+  "classStudents@gm.ntpu.edu.tw"={
+    message("There is an email from student in your class.")
+    nStudent <- length(sortedEmails$student)
+    sortedEmails$student[[nStudent+1]] <- commingEmail
+    sortedEmails
+  },
+  {
+    message("A private message has come in.")
+    nPrivate <- length(sortedEmails$private)
+    sortedEmails$private[[nPrivate+1]] <- commingEmail
+    sortedEmails
+  }
+)
+```
+
